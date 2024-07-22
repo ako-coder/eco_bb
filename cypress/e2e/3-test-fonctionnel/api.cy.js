@@ -47,7 +47,7 @@ context("GET /products", () => {
   it("produit avec id 3", () => {
     cy.request("GET", "http://localhost:8081/products/3").then((response) => {
       expect(response.status).to.eq(200);
-      // expect(response.body).length.to.be.greaterThan(3)
+      expect(response.body.id).to.eq(3);
     });
   });
 });
@@ -56,7 +56,7 @@ context("GET /products", () => {
   it("produit avec id 4", () => {
     cy.request("GET", "http://localhost:8081/products/4").then((response) => {
       expect(response.status).to.eq(200);
-      // expect(response.body).length.to.be.greaterThan(3)
+      expect(response.body.id).to.eq(4);
     });
   });
 });
@@ -125,7 +125,7 @@ describe("PUT /orders/add", () => {
           "quantity": 1
         }
       }).then((response) => {
-          expect(response.status).to.eq(404);
+          expect(response.status).to.eq(403);
         });
     });
   });
