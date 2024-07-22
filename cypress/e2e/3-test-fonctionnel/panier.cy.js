@@ -32,7 +32,7 @@ describe("panier", () => {
     cy.get("[data-cy='detail-product-stock']").invoke('text').then((newStockText) => {
       const newStock = parseInt(newStockText, 10)
       expect(newStock).to.equal(stock - 1)
-    })
+    });
 
     cy.get("[data-cy='nav-link-products']").click();
     cy.get("[data-cy='product-link']").eq(3).click();
