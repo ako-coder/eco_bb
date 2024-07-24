@@ -10,6 +10,19 @@ context("GET /orders", () => {
   });
 });
 
+describe("POST /login", () => {
+  it("login réussi", () => {
+    cy.request({
+      method: "POST",
+      url: "http://localhost:8081/login",
+      body: {
+        username: "test2@test.fr",
+        password: "testtest",
+      },
+    });
+  });
+});
+
 describe("GET /orders", () => {
   it("liste des produits du panier étant connecté", () => {
     cy.request({
@@ -57,20 +70,6 @@ context("GET /products", () => {
     cy.request("GET", "http://localhost:8081/products/4").then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body.id).to.eq(4);
-    });
-  });
-});
-
-
-describe("POST /login", () => {
-  it("login réussi", () => {
-    cy.request({
-      method: "POST",
-      url: "http://localhost:8081/login",
-      body: {
-        username: "test2@test.fr",
-        password: "testtest",
-      },
     });
   });
 });
