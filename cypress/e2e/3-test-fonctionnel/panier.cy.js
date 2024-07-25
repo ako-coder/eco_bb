@@ -70,7 +70,11 @@ describe("panier", () => {
     //test avec un chiffre supérieur à 20
     cy.get("[data-cy='detail-product-quantity']").clear().type('50')
     cy.get("[data-cy='detail-product-add']").click()
-    cy.get("[data-cy='cart-line']").should("be.visible");
+    cy.get("[data-cy='nav-link-cart']").click()
+    cy.wait(4000)
+    cy.get("[data-cy='cart-line']").should('not.exist');
+
+    cy.wait(4000);
 
     //retour
     cy.get("[data-cy='nav-link-products']").click();
