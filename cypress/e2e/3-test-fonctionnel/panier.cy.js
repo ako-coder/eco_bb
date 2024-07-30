@@ -12,7 +12,7 @@ describe("panier", () => {
   
     //nettoyage du panier avant chaque test
     cy.visit("http://localhost:8080/");
-    cy.get("[data-cy='nav-link-cart']").click();
+    cy.get("[data-cy='nav-link-cart']").click(); // mail: gaubiac.pascal@gmail.com
     cy.wait(1000);
     cy.get('body').then($body => {
       if ($body.find("[data-cy='cart-line']").length > 0) {
@@ -20,6 +20,16 @@ describe("panier", () => {
           cy.wrap($el).click();
         });
       }
+    });
+  });
+
+  it("test statut du panier", () => { // --- (new) v1.0.2 ---
+    cy.request({
+      method: "GET",
+      url: "http://localhost:8081/orders",
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response.status).to.eq(404);
     });
   });
 

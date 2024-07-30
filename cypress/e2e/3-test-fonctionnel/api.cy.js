@@ -141,6 +141,7 @@ describe("POST /reviews", () => {
       },
     }).then((res) => {
       const token = res.body.token;
+      const xssTest = "<script>alert('XSS')</script>";
       cy.request({
         method: "POST",
         url: "http://localhost:8081/reviews",
@@ -149,11 +150,15 @@ describe("POST /reviews", () => {
         },
         body: {
           "title": "title test",
-          "comment": "comment test",
+          "comment": xssTest,
           "rating": 5
         }
       }).then((response) => {
           expect(response.status).to.eq(200);
+          // test faille XSS
+          if(response.body.comment && response.body.comment.includes(xssTest)) {
+            throw new Error("Vulnérabilité XSS détectée!");
+          }
         });
     });
   });
